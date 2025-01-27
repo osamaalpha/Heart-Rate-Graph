@@ -4,10 +4,9 @@ import axios from "axios";
 export async function POST(req: NextRequest) {
   const body = await req.json();
   const { username } = body;
-  let response;
 
   try {
-    response = await axios.post(`${process.env.API_ENDPOINT}/api/signin`, {
+    axios.post(`${process.env.API_ENDPOINT}/api/signin`, {
       username,
     });
   } catch (error) {
