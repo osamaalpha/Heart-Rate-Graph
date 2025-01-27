@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   const body = await req.json();
   const { username } = body;
   let response;
@@ -10,8 +10,8 @@ export async function POST(req: any) {
     response = await axios.post(`${process.env.API_ENDPOINT}/api/signin`, {
       username,
     });
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 
   return NextResponse.json({ message: "Signed in" });

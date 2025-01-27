@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-export async function GET(req: any) {
+export async function GET(req: NextRequest) {
   const username = req.nextUrl.searchParams.get("username");
   // Establish a ReadableStream for SSE
   const stream = new ReadableStream({
@@ -20,8 +20,8 @@ export async function GET(req: any) {
           controller.enqueue(
             encoder.encode(`data: ${JSON.stringify(data)}\n\n`)
           );
-        } catch (error: any) {
-          console.log(error.message);
+        } catch (error) {
+          console.log((error as Error).message);
         }
       };
 

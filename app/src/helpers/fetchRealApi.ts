@@ -1,5 +1,7 @@
+import { IHeartBeatMeasurement } from "@/types";
+
 type IFetchRealApiReturn = {
-  parsedData: any;
+  parsedData: IHeartBeatMeasurement[] | undefined;
   eventSource: EventSource;
 };
 
