@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.9.4",
     "axios": "^1.7.9",
     "d3": "^7.9.0",
     "eventsource": "^3.0.2",
