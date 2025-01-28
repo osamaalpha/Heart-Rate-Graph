@@ -4,14 +4,14 @@ import { useRouter } from "next/navigation";
 import { IHeartBeatMeasurement } from "@/types";
 import createHeartBeatGraph from "@/graphs/createHeartBeatGraph";
 import { pagePaths, usernameStorageKey } from "@/constants";
+import { setRealTimeData } from "@/helpers/setRealTimeData";
+import styles from "./style.module.css";
 
 const HeartBeatGraph = () => {
   const [data, setData] = useState<IHeartBeatMeasurement[]>([]);
   const [previousStrokeDash, setPreviousStrokeDash] = useState(0);
 
   const router = useRouter();
-
-  console.log(data);
 
   useEffect(() => {
     const storedUsername = localStorage.getItem(usernameStorageKey);
@@ -25,7 +25,7 @@ const HeartBeatGraph = () => {
       const parsedData = JSON.parse(event.data).measurements;
 
       if (parsedData) {
-        setData([...parsedData]);
+        setData((prev) => setRealTimeData(prev, parsedData));
       }
     };
 
@@ -49,17 +49,9 @@ const HeartBeatGraph = () => {
   }, [data]);
   return (
     <>
-      <div style={{ marginTop: "50px" }}>
-        <svg
-          style={{
-            backgroundColor: "black",
-            borderRadius: "20px",
-            marginLeft: "200px", // Adjust for desired rounding
-          }}
-          id="heart-rate-graph"
-          width="800"
-          height="500"
-        />
+      <div className={styles.heartGraphContainer}>
+        <p>Monitoring heart rate</p>
+        <svg id="heart-rate-graph" />
       </div>
     </>
   );

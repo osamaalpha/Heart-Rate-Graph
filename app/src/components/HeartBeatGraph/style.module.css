@@ -1,0 +1,15 @@
+.heartGraphContainer {
+  margin-top: 50px;
+  text-align: center;
+
+  p {
+    font-size: medium;
+  }
+
+  svg {
+    background-color: black;
+    border-radius: 20px;
+    width: 800px;
+    height: 500px;
+  }
+}

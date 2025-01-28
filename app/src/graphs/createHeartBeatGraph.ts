@@ -64,21 +64,6 @@ const createHeartBeatGraph = ({
     .style("visibility", "hidden")
     .style("font-size", "12px");
 
-  const [mouseX] = d3.pointer(event, g.node());
-  const mouseDate = xScale.invert(mouseX);
-
-  const closestData = data.reduce((prev, curr) => {
-    return Math.abs(new Date(curr.timestamp).getTime() - mouseDate.getTime()) <
-      Math.abs(new Date(prev.timestamp).getTime() - mouseDate.getTime())
-      ? curr
-      : prev;
-  });
-
-  const zone = heartBeatZones.find(
-    (z) =>
-      closestData.heartRate >= z.range[0] && closestData.heartRate <= z.range[1]
-  );
-
   // Add X Axis
   g.append("g")
     .attr("transform", `translate(0,${height})`)
@@ -101,7 +86,6 @@ const createHeartBeatGraph = ({
     .attr("d", line)
     .attr("stroke-dasharray", function () {
       setPreviousStrokeDash(this.getTotalLength());
-
       return this.getTotalLength();
     })
     .attr("stroke-dashoffset", function () {
@@ -156,16 +140,36 @@ const createHeartBeatGraph = ({
     .attr("height", height)
     .attr("fill", "transparent")
     .on("mousemove", (event) => {
+      const [mouseX] = d3.pointer(event, g.node());
+      const mouseDate = xScale.invert(mouseX);
+
+      const closestData = data.reduce((prev, curr) => {
+        return Math.abs(
+          new Date(curr.timestamp).getSeconds() - mouseDate.getSeconds()
+        ) <
+          Math.abs(
+            new Date(prev.timestamp).getSeconds() - mouseDate.getSeconds()
+          )
+          ? curr
+          : prev;
+      });
+
+      const zone = heartBeatZones.find(
+        (z) =>
+          closestData.heartRate >= z.range[0] &&
+          closestData.heartRate <= z.range[1]
+      );
+
       tooltip
         .style("visibility", "visible")
         .style("top", `${event.pageY + 10}px`)
         .style("left", `${event.pageX + 10}px`)
         .html(
-          `<strong>Zone:</strong> ${zone?.name}<br />
-               <strong>BPM:</strong> ${closestData.heartRate}<br />
-               <strong>Time:</strong> ${d3.timeFormat("%H:%M:%S")(
-                 new Date(closestData.timestamp)
-               )}`
+          `<strong>Zone:</strong> ${zone?.name || "N/A"}<br />
+           <strong>BPM:</strong> ${closestData.heartRate}<br />
+           <strong>Time:</strong> ${d3.timeFormat("%H:%M:%S")(
+             new Date(closestData.timestamp)
+           )}`
         );
     })
     .on("mouseout", () => {

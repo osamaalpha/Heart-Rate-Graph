@@ -2,6 +2,7 @@
 import { pagePaths, specialCharsRegex, usernameStorageKey } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import styles from "./style.module.css";
 
 const Signin = () => {
   const [username, setUsername] = useState("");
@@ -38,7 +39,7 @@ const Signin = () => {
   };
 
   return (
-    <>
+    <div className={styles.signinContainer}>
       <h1>Real-Time Heart Rate Monitor</h1>
 
       <div>
@@ -50,7 +51,7 @@ const Signin = () => {
         />
         <button onClick={handleStart}>Start Monitoring</button>
       </div>
-    </>
+    </div>
   );
 };
 
