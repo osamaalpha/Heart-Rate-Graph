@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
         }
       };
 
-      setInterval(fetchExternalAPI, 1500);
+      setInterval(fetchExternalAPI, 1000);
     },
   });
 
