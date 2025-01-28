@@ -38,7 +38,6 @@ const createHeartBeatGraph = ({
 
   const timeFormat = d3.timeFormat("%H:%M:%S");
 
-  // Line generator
   const line = d3
     .line<IHeartBeatMeasurement>()
     .x((d) => xScale(new Date(d.timestamp)))
@@ -52,7 +51,6 @@ const createHeartBeatGraph = ({
     .y1((d) => yScale(d.heartRate))
     .curve(d3.curveCatmullRom);
 
-  // Tooltip
   const tooltip = d3
     .select("body")
     .append("div")
@@ -64,7 +62,6 @@ const createHeartBeatGraph = ({
     .style("visibility", "hidden")
     .style("font-size", "12px");
 
-  // Add X Axis
   g.append("g")
     .attr("transform", `translate(0,${height})`)
     .call(

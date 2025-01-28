@@ -50,8 +50,8 @@ const HeartBeatGraph = () => {
   return (
     <>
       <div className={styles.heartGraphContainer}>
-        <p>Monitoring heart rate</p>
-        <svg id="heart-rate-graph" />
+        <p className={styles.monitorText}>Monitoring heart rate</p>
+        <svg className={styles.graph} id="heart-rate-graph" />
       </div>
     </>
   );

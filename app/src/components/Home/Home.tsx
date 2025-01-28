@@ -1,5 +1,4 @@
 "use client";
-
 import { pagePaths, usernameStorageKey } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

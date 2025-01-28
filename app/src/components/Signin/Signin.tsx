@@ -40,7 +40,7 @@ const Signin = () => {
 
   return (
     <div className={styles.signinContainer}>
-      <h1>Real-Time Heart Rate Monitor</h1>
+      <h1 className={styles.signinHeader}>Real-Time Heart Rate Monitor</h1>
 
       <div>
         <input
