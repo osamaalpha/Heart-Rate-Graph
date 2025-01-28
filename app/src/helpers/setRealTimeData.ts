@@ -1,9 +1,9 @@
 import { IHeartBeatMeasurement } from "@/types";
 
-const maxHeartBeatsInOneMin = 16;
+const maxHeartBeatsInOneTenSec = 16;
 
 const getLengthOfElementsToCompare = (arr: []) =>
-  arr.length > maxHeartBeatsInOneMin ? maxHeartBeatsInOneMin : arr.length;
+  arr.length > maxHeartBeatsInOneTenSec ? maxHeartBeatsInOneTenSec : arr.length;
 
 export const setRealTimeData = (
   prev: IHeartBeatMeasurement[],
